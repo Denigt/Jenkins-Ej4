@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     if (hoy.getDay() == 2)
-                        echo "La fecha actual es ${hoy}"
+                        echo "La fecha actual es ${hoy.format('dd/MM/yyyy HH:mm:ss')}"
                 }
             }
         }
