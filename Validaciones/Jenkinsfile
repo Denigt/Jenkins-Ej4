@@ -13,8 +13,13 @@ def diaSemana = [
 ]
 
 def hoy = new Date()
-def usuario = "Raúl Parra Ruiz"
-
+def usuario() {
+    cause = currentBuild.rawBuild.getCause(Cause.UserIdCause)
+    if (cause != null) 
+        return cause.userId ?: 'anonymous'
+    else
+        return null
+}
 pipeline {
 
     agent any
@@ -60,8 +65,13 @@ pipeline {
         stage('Viernes') {
             steps {
                 script {
-                    if (hoy.getDay() == 5)
-                        echo "La pipeline ha sido ejecutada por ${usuario}"
+                    if (hoy.getDay() == 5) {
+                        def usuario = usuario()
+                        if (usuario != null)
+                            echo "La pipeline ha sido ejecutada por ${usuario}"
+                        else
+                            echo "La pipeline no ha sido iniciada por ningún usuario"
+                    }
                 }
             }
         }
