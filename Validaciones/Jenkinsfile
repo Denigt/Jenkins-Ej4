@@ -1,0 +1,70 @@
+def pass() {
+    return null;
+}
+
+def diaSemana = [
+    1: "Lunes",
+    2: "Martes",
+    3: "Miércoles",
+    4: "Jueves",
+    5: "Viernes",
+    6: "Sábado",
+    7: "Domingo"
+]
+
+def hoy = new Date()
+def usuario = "Raúl Parra Ruiz"
+
+pipeline {
+
+    agent any
+    
+    stages {
+        stage("Inicio") {
+            steps {
+                echo "Hoy es ${diaSemana[hoy.getDay()]}"
+            }
+        }
+        stage('Lunes') {
+            steps {
+                script {
+                    if (hoy.getDay() == 1)
+                        pass()
+                }
+            }
+        }
+        stage('Martes') {
+            steps {
+                script {
+                    if (hoy.getDay() == 2)
+                        echo "La fecha actual es ${hoy}"
+                }
+            }
+        }
+        stage('Miercoles') {
+            steps {
+                script {
+                    if (hoy.getDay() == 3)
+                        pass()
+                }   
+            }
+        }
+        stage('Jueves') {
+            steps {
+                script {
+                    if (hoy.getDay() == 4)
+                        pass()
+                }
+            }
+        }
+        stage('Viernes') {
+            steps {
+                script {
+                    if (hoy.getDay() == 5)
+                        echo "La pipeline ha sido ejecutada por ${usuario}"
+                }
+            }
+        }
+    }
+
+}
